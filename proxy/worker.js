@@ -6,7 +6,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-const PROXY = 'https://api.allorigins.win/get?url=';
+const PROXY = 'https://api.allorigins.win/raw?url=';
 const oldFetch = self.fetch;
 
 const cloneRequest = async (request) => {
@@ -33,12 +33,8 @@ self.addEventListener('fetch', event => {
   if (!event.request.url.startsWith(self.origin)) {
     event.respondWith((async () => {
       const req = await cloneRequest(event.request);
-      const data = (await ((await oldFetch(req)).json()));
-      const res = new Response(data.contents, {
-        headers: new Headers({ 'Access-Control-Allow-Origin': '*' }),
-        status: data.status.http_code
-      });
-      return res;
+      const data = await ((await oldFetch(req)));
+      return data;
     })());
   }
 });
