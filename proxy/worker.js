@@ -20,6 +20,7 @@ const getOrigin = url => {
 const inWhiteList = url => {
   const path = new URL(url).pathname;
   return getOrigin(url) == MYORIGIN && [
+    '/corsframe',
     '/proxy'
   ].some(item => path.startsWith(item));
 };
