@@ -2,6 +2,10 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
+self.addEventListener('activate', (event) => {
+  self.clients.claim();
+});
+
 const PROXY = 'https://api.allorigins.win/get?url=';
 const oldFetch = self.fetch;
 
