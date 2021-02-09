@@ -1,7 +1,9 @@
 const site = (new URLSearchParams(window.location.search)).get('url');
 const siteOrigin = new URL(site).hostname;
 
-navigator.serviceWorker.register('./worker.js');
+const load = async () => {
+  document.body.innerHTML = await (await fetch(site)).text();
+}
 
 navigator.serviceWorker.addEventListener('message', async message => {
   switch (message.data.type) {
@@ -13,8 +15,13 @@ navigator.serviceWorker.addEventListener('message', async message => {
       break;
     }
     case 'setup_complete': {
-      document.body.innerHTML = await (await fetch(site)).text();
+      load();
       break;
     }
   }
 });
+navigator.serviceWorker.register('./worker.js');
+
+if (navigator.serviceWorker.controller) {
+  window.addEventListener('load', load);
+}
