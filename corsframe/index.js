@@ -3,6 +3,9 @@ const siteOrigin = new URL(site).hostname;
 
 const load = async () => {
   document.writeln(await (await fetch(site)).text());
+  const base = document.createElement('base');
+  base.href = window.location.href.split('=')[0] + `=${site}`;
+  document.head.appendChild(base);
 }
 
 navigator.serviceWorker.addEventListener('message', async message => {
