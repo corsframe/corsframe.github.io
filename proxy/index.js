@@ -2,7 +2,7 @@ const site = (new URLSearchParams(window.location.search)).get('url');
 const siteOrigin = new URL(site).hostname;
 
 const load = async () => {
-  document.body.innerHTML = await (await fetch(site)).text();
+  document.writeln(await (await fetch(site)).text());
 }
 
 navigator.serviceWorker.addEventListener('message', async message => {
