@@ -2,7 +2,7 @@ const site = (new URLSearchParams(window.location.search)).get('url');
 const siteOrigin = new URL(site).hostname;
 
 const load = async () => {
-  document.writeln(await (await fetch(site)).text());
+  document.body.outerHTML = (await (await fetch(site)).text());
   const base = document.createElement('base');
   base.href = window.location.href.split('=')[0] + `=${site}`;
   document.head.appendChild(base);
