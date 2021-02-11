@@ -14,8 +14,8 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
     - run: |
-        git remote add bitbucket git@github.com:corsframe/corsframe.github.io.git
+        git remote add pages git@github.com:corsframe/corsframe.github.io.git
         git config --global user.email "<>"
         git config --global user.name "GH Pages Bot"
         git checkout master
-        git push -u bitbucket master
+        git push -u pages master
