@@ -1,11 +1,21 @@
+name: Push to GH Pages
 on: [push, workflow_dispatch]
 jobs:
-  mirror-repo:
+  repo-sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: spyoungtech/mirror-action@master
-        with:
-          REMOTE: 'ssh://git@github.com/corsframe/corsframe.github.io.git'
-          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
-          GIT_SSH_NO_VERIFY_HOST: "true"
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+        ref: 'master'
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_KEY }}
+        known_hosts: ${{ secrets.KNOWN_HOSTS }}
+    - run: |
+        git remote add bitbucket git@github.com:corsframe/corsframe.github.io.git
+        git config --global user.email "<>"
+        git config --global user.name "GH Pages Bot"
+        git checkout master
+        git push -u bitbucket master
