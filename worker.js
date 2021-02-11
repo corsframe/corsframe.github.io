@@ -20,7 +20,7 @@ const getOrigin = url => {
 const inWhiteList = url => {
   const path = new URL(url).pathname;
   return getOrigin(url) == MYORIGIN && [
-    '/corsframe'
+    // whitelist here
   ].some(item => path.startsWith(item));
 };
 
@@ -52,7 +52,7 @@ const cloneRequest = async (request) => {
 }
 
 self.addEventListener('fetch', event => {
-  if (!inWhiteList(event.request.url)) {
+  if (!inWhiteList(event.request.url) && event.request.mode != 'navigate') {
     event.respondWith((async () => {
       const req = await cloneRequest(event.request);
       const data = await ((await oldFetch(req)));
