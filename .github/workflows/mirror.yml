@@ -18,4 +18,6 @@ jobs:
         git config --global user.email "<>"
         git config --global user.name "GH Pages Bot"
         git checkout master
+        git rm -r .github
+        git commit -m "Automatic GH Pages Deploy"
         git push -u pages master
