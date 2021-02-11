@@ -6,6 +6,7 @@
     document.write(await (await fetch(site)).text());
     const base = document.createElement('base');
     base.href = site;
+    base.target = '_blank';
     document.head.appendChild(base);
   }
 
