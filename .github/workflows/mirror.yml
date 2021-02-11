@@ -20,4 +20,4 @@ jobs:
         git checkout master
         git rm -r .github
         git commit -m "Automatic GH Pages Deploy"
-        git push -u pages master
+        git push -u pages master -f
