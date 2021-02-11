@@ -4,6 +4,9 @@
 
   const load = async () => {
     document.write(await (await fetch(site)).text());
+    const base = document.createElement('base');
+    base.href = site;
+    document.head.appendChild(base);
   }
 
   navigator.serviceWorker.addEventListener('message', async message => {
