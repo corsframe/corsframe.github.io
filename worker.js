@@ -56,6 +56,7 @@ self.addEventListener('fetch', event => {
     event.respondWith((async () => {
       const req = await cloneRequest(event.request);
       const data = await ((await oldFetch(req)));
+      console.debug('SW:', event.request, data);
       return data;
     })());
   }
