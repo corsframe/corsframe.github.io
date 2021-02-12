@@ -9,11 +9,12 @@
     base.target = '_blank';
     document.head.appendChild(base);
     window.addEventListener('message', event => {
-      console.log(event);
       if (event.data &&
         typeof event.data == 'object' &&
         event.data.type == 'eval_code') {
-        eval(`(${event.data.data})();`)
+        const code = event.data.data;
+        console.debug(`Executing ${code}`);
+        eval(`(${code})();`)
       }
     });
   }
