@@ -1,13 +1,18 @@
-<iframe src="https://www.example.com" id="frame"></iframe>
-<script type="module">
-  import { ConnectToFrame } from '/lib.js';
-  window.frame = ConnectToFrame(document.querySelector('#frame'));
-</script>
+<iframe src="about:blank" id="frame"></iframe>
+<input id="url" value="https://www.youtube.com"></input>
+<br />
+<button onclick="load()">Load</button>
 <textarea id="code">
-() => alert(document.querySelector('p').innerText)
+() => {
+  let videos = [];
+  document.querySelectorAll('#video-title').forEach(item => {
+    videos.push(item.textContent);
+  });
+  alert(videos.join('\n'));
+}
 </textarea>
 <br />
-<button onclick="frame.inject(document.querySelector('#code').value)">Inject Into Frame</button>
+<button onclick="inject()">Inject Into Frame</button>
 <br />
 <pre>
 // usage
@@ -19,7 +24,7 @@ frame.inject(() => {
 </pre>
 <style>
   #frame {
-    border: 0px;
+    border: 1px solid black;
     width: 100%;
     height: 50%;
     margin: 0px;
@@ -29,4 +34,18 @@ frame.inject(() => {
     width: 100%;
     height: 25%;
   }
+
+  #url {
+    width: 100%;
+  }
 </style>
+<script type="module">
+  import { ConnectToFrame } from '/lib.js';
+  window.load = () => {
+    const iframe = document.querySelector('#frame');
+    iframe.src = document.querySelector('#url').value;
+    window.frame = ConnectToFrame(iframe);
+    window.inject = () => window.frame.inject(document.querySelector('#code').value);
+  }
+  window.load();
+</script>
