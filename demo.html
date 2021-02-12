@@ -1,11 +1,11 @@
 <iframe src="about:blank" id="frame"></iframe>
-<input id="url" value="https://r2dev2.github.io/"></input>
+<input id="url" value="https://www.youtube.com"></input>
 <br />
 <button onclick="load()">Load</button>
 <textarea id="code">
 () => {
   let videos = [];
-  document.querySelectorAll('.project-title').forEach(item => {
+  document.querySelectorAll('#video-title').forEach(item => {
     videos.push(item.textContent);
   });
   alert(videos.join('\n'));
