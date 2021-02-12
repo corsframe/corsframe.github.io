@@ -8,6 +8,13 @@
     base.href = site;
     base.target = '_blank';
     document.head.appendChild(base);
+    window.addEventListener('message', event => {
+      if (event.data &&
+        typeof event.data == 'object' &&
+        event.data.type == 'eval_code') {
+        eval(`(${event.data.data})();`)
+      }
+    });
   }
 
   navigator.serviceWorker.addEventListener('message', async message => {
@@ -26,14 +33,6 @@
     }
   });
   navigator.serviceWorker.register('./worker.js');
-
-  window.addEventListener('message', event => {
-    if (event.data &&
-      typeof event.data == 'object' &&
-      event.data.type == 'eval_code') {
-      eval(`(${event.data.data})();`)
-    }
-  })
 
   if (navigator.serviceWorker.controller) {
     window.addEventListener('load', load);

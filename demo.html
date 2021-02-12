@@ -4,7 +4,7 @@
   window.frame = ConnectToFrame(document.querySelector('#frame'));
 </script>
 <textarea id="code">
-alert(document.querySelector('p').innerText);
+() => alert(document.querySelector('p').innerText)
 </textarea>
 <br />
 <button onclick="frame.inject(document.querySelector('#code').value)">Inject Into Frame</button>
