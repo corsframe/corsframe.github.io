@@ -8,15 +8,6 @@
     base.href = site;
     base.target = '_blank';
     document.head.appendChild(base);
-    window.addEventListener('message', event => {
-      if (event.data &&
-        typeof event.data == 'object' &&
-        event.data.type == 'eval_code') {
-        const code = event.data.data;
-        console.debug(`Executing ${code}`);
-        eval(`(${code})();`)
-      }
-    });
   }
 
   navigator.serviceWorker.addEventListener('message', async message => {

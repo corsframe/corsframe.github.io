@@ -3,22 +3,21 @@
 <br />
 <button onclick="load()">Load</button>
 <textarea id="code">
-() => {
-  let videos = [];
-  document.querySelectorAll('#video-title').forEach(item => {
-    videos.push(item.textContent);
-  });
-  alert(videos.join('\n'));
-}
+elements = frame.eval(() => {
+  return document.querySelectorAll('#video-title');
+});
+videos = [];
+elements.forEach(e => videos.push(e.textContent));
+alert(videos.join('\n'));
 </textarea>
 <br />
-<button onclick="inject()">Inject Into Frame</button>
+<button onclick="run()">Run Code</button>
 <br />
 <pre>
 // usage
 import { ConnectToFrame } from 'lib path';
 const frame = ConnectToFrame(/* frame element */);
-frame.inject(() => {
+const result = frame.eval(() => {
   // function to eval here
 });
 </pre>
@@ -45,7 +44,7 @@ frame.inject(() => {
     const iframe = document.querySelector('#frame');
     iframe.src = document.querySelector('#url').value;
     window.frame = ConnectToFrame(iframe);
-    window.inject = () => window.frame.inject(document.querySelector('#code').value);
+    window.run = () => window.eval(document.querySelector('#code').value);
   }
   window.load();
 </script>

@@ -1,12 +1,9 @@
 export const ConnectToFrame = (frame) => {
-  frame.src = `https://corsframe.github.io/?url=${encodeURIComponent(frame.src)}`;
+  frame.src = `${window.origin}/?url=${encodeURIComponent(frame.src)}`;
   return new Proxy({}, {
     get(target, name, receiver) {
-      if (name == 'inject') return (code) => {
-        frame.contentWindow.postMessage({
-          type: 'eval_code',
-          data: typeof code == 'string' ? code : code.toString()
-        }, '*');
+      if (name == 'eval') return (code) => {
+        return frame.contentWindow.eval(`(${code})();`)
       }
       return frame[name];
     },
