@@ -20,6 +20,8 @@ const getOrigin = url => {
 const inWhiteList = url => {
   const path = new URL(url).pathname;
   return getOrigin(url) == MYORIGIN && [
+    '/demo.html',
+    '/lib.js'
     // whitelist here
   ].some(item => path.startsWith(item));
 };
